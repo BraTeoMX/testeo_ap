@@ -151,7 +151,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($supervisoresPlanta1 as $supervisor)
+                                    @foreach ($supervisoresPlanta1 as $supervisor) 
                                         <tr>
                                             <td style="text-align: left">{{ $supervisor->nombre }}</td>
                                             <td>{{ $supervisor->modulo }}</td>
@@ -175,7 +175,7 @@
                                                 @endforeach
                                             @endforeach
                                         </tr>
-                                    @endforeach
+                                    @endforeach 
                                 </tbody>
                             </table>
                         </div>

@@ -55,7 +55,7 @@
             <td class="sin-borde" style="text-align:center; font-size: 10px" >.</td>
          </tr>
          <tr>
-            <td class="sin-borde" style="text-align:center; font-size: 10px " colspan =3><h3>SEGUIMIENTO A CUMPLIMIENTO DE METAS </h3></td>
+            <td class="sin-borde" style="text-align:center; font-size: 10px " colspan =3><h3>SEGUIMIENTO A CUMPLIMIENTO DE METAS <br>Planta San Bartolo </h3></td>
          </tr>
         </table>
         <!-- Este POST manda a llamar la funcion del controller llamdo Reportes -->

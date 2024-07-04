@@ -68,8 +68,8 @@ class ProduccionMetasController extends Controller
     {
         $supervisoresPlanta1 = Supervisor::where('planta', 'Intimark1')->where('estatus', 'A')->get();
         $supervisoresPlanta2 = Supervisor::where('planta', 'Intimark2')->where('estatus', 'A')->get();
-        //$current_week = date('W'); // Obtener la semana actual
-        $current_week = 26;
+        $current_week = date('W'); // Obtener la semana actual
+        //$current_week = 26;
         $current_month = date('F');
         //$currentYear = 2023;
         $currentYear = date('Y'); // Obtener el año actual
@@ -89,8 +89,8 @@ class ProduccionMetasController extends Controller
 
     public function storeProduccion1(Request $request)
     {
-        $current_week = 26;
-        //$current_week = date('W'); // Obtener la semana actual
+        //$current_week = 26;
+        $current_week = date('W'); // Obtener la semana actual
         //$currentYear = 2023;
         $currentYear = date('Y'); // Obtener el año actual
 
@@ -120,7 +120,7 @@ class ProduccionMetasController extends Controller
     }
 
 
-    public function reporteGeneralMetas(Request $request)
+    public function reporteGeneralMetas(Request $request) 
     {
         // Obtener la semana y el año actual
         $currentDate = new DateTime();
@@ -144,11 +144,8 @@ class ProduccionMetasController extends Controller
         $endYear = substr($endWeek, 0, 4);
         $endWeek = substr($endWeek, 6);
 
-        // Filtrar supervisores por planta
-        $supervisoresPlanta1 = Supervisor::where('planta', 'Intimark1')->get();
-        $supervisoresPlanta2 = Supervisor::where('planta', 'Intimark2')->get();
 
-        // Filtrar producción por rango de semanas y años
+        // Filtrar producción por rango de semanas y años 
         $produccionPlanta1 = Produccion1::with('supervisor')
             ->whereHas('supervisor', function ($query) {
                 $query->where('planta', 'Intimark1');
@@ -162,6 +159,10 @@ class ProduccionMetasController extends Controller
             })
             ->whereBetween(DB::raw("CONCAT(año, '-', LPAD(semana, 2, '0'))"), ["$startYear-$startWeek", "$endYear-$endWeek"])
             ->get();
+
+        // Filtrar supervisores que tienen registros en el rango de semanas seleccionadas
+        $supervisoresPlanta1 = $produccionPlanta1->pluck('supervisor')->unique('id');
+        $supervisoresPlanta2 = $produccionPlanta2->pluck('supervisor')->unique('id');
 
         $mesesAMostrar = $this->obtenerMeses($produccionPlanta1, $produccionPlanta2);
 
@@ -366,10 +367,6 @@ class ProduccionMetasController extends Controller
         $endYear = substr($endWeek, 0, 4);
         $endWeek = substr($endWeek, 6);
 
-        // Filtrar supervisores por planta
-        $supervisoresPlanta1 = Supervisor::where('planta', 'Intimark1')->get();
-        $supervisoresPlanta2 = Supervisor::where('planta', 'Intimark2')->get();
-
         // Filtrar producción por rango de semanas y años
         $produccionPlanta1 = Produccion1::with('supervisor')
             ->whereHas('supervisor', function ($query) {
@@ -385,6 +382,10 @@ class ProduccionMetasController extends Controller
             ->whereBetween(DB::raw("CONCAT(año, '-', LPAD(semana, 2, '0'))"), ["$startYear-$startWeek", "$endYear-$endWeek"])
             ->get();
 
+        //
+        // Filtrar supervisores que tienen registros en el rango de semanas seleccionadas
+        $supervisoresPlanta1 = $produccionPlanta1->pluck('supervisor')->unique('id');
+        $supervisoresPlanta2 = $produccionPlanta2->pluck('supervisor')->unique('id');
         $mesesAMostrar = $this->obtenerMeses($produccionPlanta1, $produccionPlanta2);
 
         $contadorTS = [];
@@ -529,10 +530,6 @@ class ProduccionMetasController extends Controller
         $endYear = substr($endWeek, 0, 4);
         $endWeek = substr($endWeek, 6);
 
-        // Filtrar supervisores por planta
-        $supervisoresPlanta1 = Supervisor::where('planta', 'Intimark1')->get();
-        $supervisoresPlanta2 = Supervisor::where('planta', 'Intimark2')->get();
-
         // Filtrar producción por rango de semanas y años
         $produccionPlanta1 = Produccion1::with('supervisor')
             ->whereHas('supervisor', function ($query) {
@@ -547,6 +544,10 @@ class ProduccionMetasController extends Controller
             })
             ->whereBetween(DB::raw("CONCAT(año, '-', LPAD(semana, 2, '0'))"), ["$startYear-$startWeek", "$endYear-$endWeek"])
             ->get();
+
+        // Filtrar supervisores que tienen registros en el rango de semanas seleccionadas
+        $supervisoresPlanta1 = $produccionPlanta1->pluck('supervisor')->unique('id');
+        $supervisoresPlanta2 = $produccionPlanta2->pluck('supervisor')->unique('id');
 
         $mesesAMostrar = $this->obtenerMeses($produccionPlanta1, $produccionPlanta2);
 
